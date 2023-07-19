@@ -1,0 +1,59 @@
+@model RepositorioDTO.DTO.ProductoDTO
+
+<h1 class="text-center">Eliminar producto</h1>
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">¿Esta seguro que desea eliminar este producto?</h3>
+        </div>
+        <div class="card-body">
+          <dl class="row">
+            <dt class="col-sm-4">
+              @Html.DisplayNameFor(model=>model.Nombre)
+            </dt>
+            <dd class="col-sm-8">
+              @Html.DisplayFor(model=>model.Nombre)
+            </dd>
+            <dt class="col-sm-4">
+              @Html.DisplayNameFor(model=>model.Precio)
+            </dt>
+            <dd class="col-sm-8">
+              @Html.DisplayFor(model=>model.Precio)
+            </dd>
+          </dl>
+          <div class="text-center">
+            <form asp-action="Eliminar" asp-route-id="@Model.Id" id="eliminarForm">
+              <button type="button" id="eliminarBtn" class="btn btn-danger">Eliminar</button>
+              <a asp-action="Index" class="btn btn-secondary">Regresar al Index</a>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+@section scripts{
+  <script>
+    document.getElementById('eliminarBtn').addEventListener('click', function (e) {
+      e.preventDefault();
+
+      Swal.fire({
+        title: '¿Esta seguro?',
+        text: '¿Desea eliminar este producto?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#dc3545',
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: 'Si, Eliminar',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          document.getElementById('eliminarForm').submit();
+        }
+      });
+    });
+  </script>
+}
